@@ -10,13 +10,17 @@ public class BallCollision : MonoBehaviour
     public Transform paddle;
     public float offset;
     bool start = false;
-    float Count;
+    //float Count;
+    public float SuperBrickCount;
+    public int brickCount;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        Bricks br = FindObjectOfType<Bricks>();
-        Count = br.brick.Length;
+        //Bricks br = FindObjectOfType<Bricks>();
+        //Count = br.brick.Length;
+        brickCount = GameObject.FindGameObjectsWithTag("Brick").Length;
+        SuperBrickCount = GameObject.FindGameObjectsWithTag("SuperBrick").Length;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -24,21 +28,30 @@ public class BallCollision : MonoBehaviour
         if (collision.gameObject.tag == "Paddle")
         {
             
-            print("Paddle collision");
+            //print("Paddle collision");
         }
         else if (collision.gameObject.tag == "Boundary")
         {
             
-            print("Boundary collision");
+            //print("Boundary collision");
         }
-        else if(collision.gameObject.tag == "Brick")
-            {
-            //Destroy(collision.gameObject);
-            Count = Count-0.5f;
-        }
-        if (Count <= 0)
+        else if (collision.gameObject.tag == "SuperBrick")
         {
-            print("Game over");
+            //Destroy(collision.gameObject);
+            //Count = Count - 0.5f;
+            SuperBrickCount = SuperBrickCount - 0.5f;
+        }
+        if(collision.gameObject.tag == "Brick")
+        {
+            brickCount--;
+        }
+        //if (Count <= 0)
+        //{
+        //    print("Game over");
+        //    SceneManager.LoadScene(1);
+        //}
+        if(SuperBrickCount <= 0 && brickCount<=0)
+        {
             SceneManager.LoadScene(1);
         }
 
@@ -49,7 +62,7 @@ public class BallCollision : MonoBehaviour
         {
             Destroy(gameObject);
             SceneManager.LoadScene(1);
-            print("Ball destroyed");
+            //print("Ball destroyed");
         }
     }
 
@@ -60,7 +73,7 @@ public class BallCollision : MonoBehaviour
         {
             rb.velocity = new Vector2(0, ballVelocity);
             start = true;
-            print("Ball launched");
+           // print("Ball launched");
         }
         if (start == false)
         {
