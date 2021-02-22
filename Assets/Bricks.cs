@@ -8,11 +8,13 @@ public class Bricks : MonoBehaviour
     SpriteRenderer sprite;
     public int health = 2;
     //public int count = 8;
+    public GameObject[] brick;
     
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
-        
+        brick = new GameObject[GameObject.FindGameObjectsWithTag("Brick").Length];
+        print(brick.Length);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -21,6 +23,7 @@ public class Bricks : MonoBehaviour
         {
             health--;
             sprite.color = new Color(1, 0.4f, 0, 1);
+
         }
        
         if (health <= 0)

@@ -10,11 +10,13 @@ public class BallCollision : MonoBehaviour
     public Transform paddle;
     public float offset;
     bool start = false;
-    //int Count = 8;
+    float Count;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Bricks br = FindObjectOfType<Bricks>();
+        Count = br.brick.Length;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -32,13 +34,13 @@ public class BallCollision : MonoBehaviour
         else if(collision.gameObject.tag == "Brick")
             {
             //Destroy(collision.gameObject);
-            //Count --;
+            Count = Count-0.5f;
         }
-        //if (Count <= 0)
-        //{
-        //    print("Game over");
-        //    SceneManager.LoadScene(1);
-        //}
+        if (Count <= 0)
+        {
+            print("Game over");
+            SceneManager.LoadScene(1);
+        }
 
     }
     private void OnTriggerEnter2D(Collider2D collision)
