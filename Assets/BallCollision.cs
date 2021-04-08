@@ -52,7 +52,7 @@ public class BallCollision : MonoBehaviour
         //}
         if(SuperBrickCount <= 0 && brickCount<=0)
         {
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
         }
 
     }
@@ -61,7 +61,7 @@ public class BallCollision : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             Destroy(gameObject);
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(2);
             //print("Ball destroyed");
         }
     }
